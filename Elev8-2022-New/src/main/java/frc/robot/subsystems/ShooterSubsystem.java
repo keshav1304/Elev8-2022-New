@@ -5,20 +5,9 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.wpilibj.Servo;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import frc.robot.Constants;
-import frc.robot.RobotContainer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ShooterSubsystem extends SubsystemBase {
 
@@ -26,8 +15,10 @@ public class ShooterSubsystem extends SubsystemBase {
   //private final WPI_TalonSRX FWL;
   //private final WPI_TalonSRX FWR;
   //private final MotorControllerGroup flyWheel;
-  private final WPI_TalonSRX Shooter;
-  private final Servo Hood;
+  private final CANSparkMax Shooter;
+  //private final Servo HoodL;
+  //private final Servo HoodR;
+  //private final MotorControllerGroup Hood;
 
 
   public ShooterSubsystem() {
@@ -36,9 +27,11 @@ public class ShooterSubsystem extends SubsystemBase {
     //FWL = new WPI_TalonSRX(Constants.FWL_port);
     //FWR = new WPI_TalonSRX(Constants.FWR_port);
     //flyWheel = new MotorControllerGroup(FWL, FWR);
-    Shooter = new WPI_TalonSRX(Constants.Shooter_port);
+    Shooter = new CANSparkMax(Constants.Shooter_port, MotorType.kBrushless); //Have to check whether its brushless or brushed
 
-    Hood = new Servo(Constants.Hood_port);
+    //HoodL = new Servo(Constants.HoodL_port);
+    //HoodR = new Servo(Constants.HoodR_port);
+    //Hood = new MotorControllerGroup(HoodL, HoodR);
 
 
   }
@@ -61,15 +54,27 @@ public class ShooterSubsystem extends SubsystemBase {
     
   }
 
-  public void setHood (double angle)
+  double integral = 0;
+  double prevError = 0;
+  public void shootPID(double speed, double seconds)
   {
-    /*double startTime = System.currentTimeMillis();
+    double startTime = System.currentTimeMillis();
     while ((startTime - System.currentTimeMillis())/1000 <= seconds)
     {
-      Hood.set(speed);
+      double error = speed - Shooter.get();
+      double derivative = error - prevError;
+      prevError = error;
+      double correction = error*Constants.kPShoot + derivative*Constants.kDShoot + integral*Constants.kIShoot;
+      integral = error + integral;
+      Shooter.set(speed + correction);
     }
-    Hood.set(0);*/
-    Hood.setAngle(angle);
+    Shooter.set(0);
   }
+
+  /*public void setHood (double angle)
+  {
+    HoodL.setAngle(angle);
+    HoodR.setAngle(angle);
+  }*/
 
 }

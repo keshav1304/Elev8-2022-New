@@ -8,14 +8,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveSubsystem extends SubsystemBase {
 
@@ -28,12 +24,6 @@ public class DriveSubsystem extends SubsystemBase {
   private final MotorControllerGroup leftSide;
 
   private final DifferentialDrive driveTrain;
-
-  private double acceleration;
-  private double velocity;
-  private double displacement; 
-  private double previousTime;
-  private Timer timer;
 
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {
@@ -120,17 +110,17 @@ public class DriveSubsystem extends SubsystemBase {
     drive(correction, -correction);
   }
 
-  public void alignBall(double angleCorrection, double distanceCorrection) {
-    double correctionLeft = /*distanceCorrection*/ + angleCorrection;
-    double correctionRight =  /*distanceCorrection*/ - angleCorrection;
+  // public void alignBall(double angleCorrection, double distanceCorrection) {
+  //   double correctionLeft = /*distanceCorrection*/ + angleCorrection;
+  //   double correctionRight =  /*distanceCorrection*/ - angleCorrection;
 
-    if (Math.abs(correctionLeft) < Constants.minSpeed) correctionLeft = Math.signum(correctionLeft) * Constants.minSpeed;
-    if (Math.abs(correctionLeft) > Constants.maxSpeed) correctionLeft = Math.signum(correctionLeft) * Constants.maxSpeed;
-    if (Math.abs(correctionRight) < Constants.minSpeed) correctionRight = Math.signum(correctionRight) * Constants.minSpeed;
-    if (Math.abs(correctionRight) > Constants.maxSpeed) correctionRight = Math.signum(correctionRight) * Constants.maxSpeed;
+  //   if (Math.abs(correctionLeft) < Constants.minSpeed) correctionLeft = Math.signum(correctionLeft) * Constants.minSpeed;
+  //   if (Math.abs(correctionLeft) > Constants.maxSpeed) correctionLeft = Math.signum(correctionLeft) * Constants.maxSpeed;
+  //   if (Math.abs(correctionRight) < Constants.minSpeed) correctionRight = Math.signum(correctionRight) * Constants.minSpeed;
+  //   if (Math.abs(correctionRight) > Constants.maxSpeed) correctionRight = Math.signum(correctionRight) * Constants.maxSpeed;
 
-    drive(correctionLeft, correctionRight);
-  }
+  //   drive(correctionLeft, correctionRight);
+  // }
 
   public void swerve(double angleCorrection, double distanceCorrection) {
     double correctionLeft = distanceCorrection + angleCorrection;

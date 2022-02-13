@@ -18,12 +18,12 @@ public class LimelightShoot extends SequentialCommandGroup {
   public LimelightShoot(ShooterSubsystem shooterSubsystem, DriveSubsystem driveSubsystem) {
 
     double ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
-    double dist = Constants.goalHt / Math.tan(ty);
-    double power = dist * Constants.kShoot;
+    double dist = Constants.goalHt / Math.tan(ty); //Add limelight set angle to ty
+    double power = dist * 0.001; //constant to tune
     addCommands(new GoalSeekingCommand(driveSubsystem));
     addCommands(new GoalAligningCommand(driveSubsystem, shooterSubsystem));
-    shooterSubsystem.setHood(ty*Constants.kHood);
-    shooterSubsystem.shoot(power, 2);
+    //shooterSubsystem.setHood(ty*Constants.kHood);
+    shooterSubsystem.shootPID(power, 2);
     
 
 

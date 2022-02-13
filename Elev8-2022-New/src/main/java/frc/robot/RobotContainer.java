@@ -6,10 +6,7 @@ package frc.robot;
 
 import com.kauailabs.navx.frc.AHRS;
 
-import java.lang.*;
-import java.util.*;
 import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.LimelightShoot;
@@ -18,10 +15,6 @@ import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.MoveByDistanceCommand;
-import frc.robot.commands.MoveByAngleCommand;
-import frc.robot.commands.BallFollowingCommand;
-import frc.robot.commands.SwerveCommand;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -39,7 +32,7 @@ public class RobotContainer {
   private final DriveCommand driveCommand = new DriveCommand(driveSubsystem);
 
   // IO Devices
-  public static Joystick joy1 = new Joystick(1);
+  public static Joystick joy1 = new Joystick(0);
 
   public static Encoder encR = new Encoder(0, 1, false, Encoder.EncodingType.k4X);
   public static Encoder encL = new Encoder(2, 3, true, Encoder.EncodingType.k4X);
@@ -74,8 +67,7 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
 
-    return new SwerveCommand(this.driveSubsystem, 30, 2);
-    //return new BallFollowingCommand(this.driveSubsystem);
+    return new LimelightShoot(shooterSubsystem, driveSubsystem);
   }
 
   public static double getY(Joystick joy, double deadband) {
