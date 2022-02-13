@@ -33,7 +33,7 @@ public class GoalSeekingCommand extends CommandBase {
   @Override
   public void execute() {
     this.tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getBoolean(false);
-    driveSubsystem.drive(Constants.maxSpeed, -Constants.maxSpeed);
+    driveSubsystem.drive(Constants.maxSpeed, -Constants.maxSpeed); //can change speeds if there is overshoot
   }
 
   // Called once the command ends or is interrupted.

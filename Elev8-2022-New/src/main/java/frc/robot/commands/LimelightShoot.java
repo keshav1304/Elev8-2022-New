@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import java.lang.Math;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -17,13 +18,13 @@ public class LimelightShoot extends SequentialCommandGroup {
   /** Creates a new ShootByDistance. */
   public LimelightShoot(ShooterSubsystem shooterSubsystem, DriveSubsystem driveSubsystem) {
 
-    double ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
-    double dist = Constants.goalHt / Math.tan(ty); //Add limelight set angle to ty
-    double power = dist * 0.001; //constant to tune
+    double ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0d); //Make sure limelight is the name of the networktable entry
+    double dist = Constants.goalHt / Math.tan(Math.toRadians(ty+Constants.limelightAngle));
+    double power = dist * Constants.ShotConstant; //constant to tune
     addCommands(new GoalSeekingCommand(driveSubsystem));
     addCommands(new GoalAligningCommand(driveSubsystem, shooterSubsystem));
     //shooterSubsystem.setHood(ty*Constants.kHood);
-    shooterSubsystem.shootPID(power, 2);
+    shooterSubsystem.shootPID(power, 2d); //will have to change seconds depending on how long it takes to shoot
     
 
 

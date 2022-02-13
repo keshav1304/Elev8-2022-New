@@ -38,7 +38,7 @@ public final class Constants {
 
     // public static final double T = 20 * Math.pow(10, -3);
     public static final double G = 9.81;
-    public static final double FIELD = 0.762;
+    //public static final double FIELD = 0.762;
 
     public static double kPTurn = 0.0085;
     public static double kPDist = 0.21;
@@ -46,14 +46,15 @@ public final class Constants {
     // public static final double CAM_WIDTH = 854;
     // public static final double MAX_RADIUS = 100;
 
-    public static double navxScale = 1.1d;
+    public static double navxScale = 1.1;
     //public static double cameraScale = 0.00035;
     //public static double radiusScale = 5.0d;
 
     //public static double ballRadius = 54;
 
-    public static double goalHt = 0d; //set this to the actual goal height (in metres preferably)
-
+    public static double goalHt = 2.6416; //set this to the actual goal height (in metres preferably)
+    public static double limelightAngle = 30d;
+    public static double ShotConstant = 0.001;
     public static double kPShoot = 0.001;
     public static double kIShoot = 0.001;    
     public static double kDShoot = 0.001;
