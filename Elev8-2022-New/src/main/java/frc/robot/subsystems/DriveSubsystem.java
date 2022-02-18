@@ -110,18 +110,6 @@ public class DriveSubsystem extends SubsystemBase {
     drive(correction, -correction);
   }
 
-  // public void alignBall(double angleCorrection, double distanceCorrection) {
-  //   double correctionLeft = /*distanceCorrection*/ + angleCorrection;
-  //   double correctionRight =  /*distanceCorrection*/ - angleCorrection;
-
-  //   if (Math.abs(correctionLeft) < Constants.minSpeed) correctionLeft = Math.signum(correctionLeft) * Constants.minSpeed;
-  //   if (Math.abs(correctionLeft) > Constants.maxSpeed) correctionLeft = Math.signum(correctionLeft) * Constants.maxSpeed;
-  //   if (Math.abs(correctionRight) < Constants.minSpeed) correctionRight = Math.signum(correctionRight) * Constants.minSpeed;
-  //   if (Math.abs(correctionRight) > Constants.maxSpeed) correctionRight = Math.signum(correctionRight) * Constants.maxSpeed;
-
-  //   drive(correctionLeft, correctionRight);
-  // }
-
   public void swerve(double angleCorrection, double distanceCorrection) {
     double correctionLeft = distanceCorrection + angleCorrection;
     double correctionRight =  distanceCorrection - angleCorrection;
